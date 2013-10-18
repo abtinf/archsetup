@@ -46,8 +46,13 @@ sed 's/^# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/' /etc/sudoers.backup > /etc
 echo Defaults timestamp_timeout=20 >> /etc/sudoers
 
 #Install openssh
-pacman -S --noconfirm openssh
+pacman -S --noconfirm openss
 
+#install dialog, which is needed by wifi-menu
+pacman -S --noconfirm dialog
+
+#enable dhcpd
+systemctl enable dhcpcd.service
 
 #leave chroot
 exit
