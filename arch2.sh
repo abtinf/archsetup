@@ -41,17 +41,15 @@ passwd $USERNAME
 #enable wheel group for sudo
 mv /etc/sudoers /etc/sudoers.backup
 sed 's/^# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/' /etc/sudoers.backup > /etc/sudoers
+
 #sudo password caching
 echo Defaults timestamp_timeout=20 >> /etc/sudoers
-
-#install network manager and openssh
-pacman -S --noconfirm wicd openssh
 
 #disable wierd network interface naming scheme
 ln -s /dev/null /etc/udev/rules.d/80-net-name-slot.rules
 
-#enable wicd
-systemctl enable wicd.service
+#Install openssh
+pacman -S --noconfirm openssh
 
 
 #leave chroot
