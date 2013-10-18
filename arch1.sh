@@ -60,6 +60,7 @@ genfstab -p /mnt >> /mnt/etc/fstab
 mv ./arch2.sh /mnt/root/arch2.sh
 arch-chroot /mnt chmod +x /root/arch2.sh
 arch-chroot /mnt /bin/bash /root/arch2.sh
+rm /mnt/root/arch2.sh
 
 umount /mnt/boot
 umount /mnt
