@@ -45,9 +45,6 @@ sed 's/^# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/' /etc/sudoers.backup > /etc
 #sudo password caching
 echo Defaults timestamp_timeout=20 >> /etc/sudoers
 
-#disable wierd network interface naming scheme
-ln -s /dev/null /etc/udev/rules.d/80-net-name-slot.rules
-
 #Install openssh
 pacman -S --noconfirm openssh
 
