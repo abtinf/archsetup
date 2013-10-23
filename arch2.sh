@@ -48,8 +48,8 @@ echo Defaults timestamp_timeout=20 >> /etc/sudoers
 #Install openssh
 pacman -S --noconfirm openss
 
-#install dependencies for wifi-menu
-pacman -S --noconfirm dialog wpa_supplicant
+#install dependencies for netctl
+pacman -S --noconfirm dialog wpa_supplicant ifplugd iw wpa_actiond
 
 #enable dhcpd
 systemctl enable dhcpcd.service
