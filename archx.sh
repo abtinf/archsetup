@@ -8,7 +8,7 @@ sudo pacman -S --noconfirm ttf-dejavu artwiz-fonts ttf-droid ttf-inconsolata ttf
 sudo pacman -S --noconfirm audacity inkscape libreoffice-en-US libreoffice-calc libreoffice-impress libreoffice-writer libreoffice-draw gimp hunspell-en hyphen-en libmythes mythes-en gedit pidgin purple-plugin-pack aspell-en pidgin-otr gnucash tightvnc rdesktop
 #browsers
 sudo pacman -S --noconfirm uzbl-browser firefox filezilla surf
-yaourt -S --noconfirm google-chrome-dev google-talkplugin minecraft spotify
+yaourt -S --noconfirm google-chrome-dev google-talkplugin minecraft
 #printing
 sudo pacman -S --noconfirm cups cups-filters ghostscript gsfonts cups-pdf hplip
 sudo systemctl enable cups
