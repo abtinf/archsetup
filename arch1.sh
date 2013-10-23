@@ -29,8 +29,8 @@ EOF
 cat <<EOF | cryptsetup luksOpen /dev/sda2 cryptroot
 $PASSPHRASE
 EOF
-mkfs.ext4 /dev/mapper/cryptroot
-mkfs.ext4 /dev/sda1
+mkfs.btrfs /dev/mapper/cryptroot
+mkfs.btrfs /dev/sda1
 mount /dev/mapper/cryptroot /mnt
 mkdir /mnt/boot
 mount /dev/sda1 /mnt/boot
