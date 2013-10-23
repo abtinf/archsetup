@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #servers
-sudo pacman -S --noconfirm xorg-server xorg-server-utils xorg-xinit nvidia xf86-input-synaptics xterm xscreensaver slim slim-themes archlinux-themes-slim spectrwm scrot
+sudo pacman -S --noconfirm xorg-server xorg-server-utils xorg-xinit xf86-video-intel xf86-input-synaptics xterm slim slim-themes archlinux-themes-slim spectrwm scrot slock
 #fonts
 sudo pacman -S --noconfirm ttf-dejavu artwiz-fonts ttf-droid ttf-inconsolata ttf-freefont ttf-liberation xorg-fonts-type1
 #apps
@@ -21,8 +21,7 @@ sudo systemctl enable slim.service
 #configure xinitrc
 cat > ~/.xinitrc <<EOL
 xrdb ~/.Xresources &
-/usr/bin/xscreensaver -no-splash &
-exec spectrwm
+exec \$1
 EOL
 chmod +x ~/.xinitrc
 
@@ -38,19 +37,6 @@ Section "InputClass"
     Option             "XAxisMapping" "6 7"
     Option             "YAxisMapping" "4 5"
     Option             "ButtonMapping" "1 1 3 4 5"
-EndSection
-EOL'
-
-#nvidia config
-sudo bash -c 'cat > /etc/X11/xorg.conf.d/20-nvidia.conf <<EOL
-Section "Device"
-    Identifier         "Device0"
-    Driver             "nvidia"
-    VendorName         "NVIDIA Corporation"
-    Option             "NoLogo" "1"
-    Option             "RegistryDwords" "EnableBrightnessControl=1"
-    Option             "UseEdidDpi" "False"
-    Option             "DPI" "96 x 96"
 EndSection
 EOL'
 
@@ -81,7 +67,7 @@ sed 's/^# disable_border/disable_border/' ~/.spectrwm.conf > ~/.spectrwm.confbac
 sed 's/^# bar_at_bottom/bar_at_bottom/' ~/.spectrwm.conf > ~/.spectrwm.confback; mv ~/.spectrwm.confback ~/.spectrwm.conf
 sed -r 's/^# title_name_enabled\s+= 0/title_name_enabled    = 1/' ~/.spectrwm.conf > ~/.spectrwm.confback; mv ~/.spectrwm.confback ~/.spectrwm.conf
 sed -r 's/^# window_name_enabled\s+= 0/window_name_enabled   = 1/' ~/.spectrwm.conf > ~/.spectrwm.confback; mv ~/.spectrwm.confback ~/.spectrwm.conf
-sed -r 's/^# program\[lock\]\s+= xlock/program[lock]         = xscreensaver-command --lock/' ~/.spectrwm.conf > ~/.spectrwm.confback; mv ~/.spectrwm.confback ~/.spectrwm.conf
+sed -r 's/^# program\[lock\]\s+= xlock/program[lock]         = slock/' ~/.spectrwm.conf > ~/.spectrwm.confback; mv ~/.spectrwm.confback ~/.spectrwm.conf
 sed -r 's/^# bar_border_width\s+= 1/bar_border_width = 0/' ~/.spectrwm.conf > ~/.spectrwm.confback; mv ~/.spectrwm.confback ~/.spectrwm.conf
 
 cat >> ~/.spectrwm.conf <<EOL
@@ -91,13 +77,8 @@ program[lower_volume]    = amixer set Master 5%- unmute
 bind[lower_volume]    = XF86AudioLowerVolume
 program[mute_volume]    = amixer set Master toggle
 bind[mute_volume]    = XF86AudioMute
-program[screensaver]    = xscreensaver-command -lock
+program[screensaver]    = slock
 bind[screensaver]    = XF86ScreenSaver
 program[chrome]    = google-chrome
 bind[chrome]        = MOD+F1
 EOL
-
-#enable xscreensaver locking
-#sudo mv /usr/share/X11/app-defaults/XScreenSaver /usr/share/X11/app-defaults/XScreenSaver.backup
-#sudo bash -c "sed -r 's/^\*lock:\s+False/lock:  True/' /usr/share/X11/app-defaults/XScreenSaver.backup | sed -r 's/^\*mode:\s+random/mode: blank/' > /usr/share/X11/app-defaults/XScreenSaver" 
-
