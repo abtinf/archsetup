@@ -55,7 +55,7 @@ pacman -S --noconfirm dialog wpa_supplicant ifplugd iw wpa_actiond
 systemctl enable dhcpcd.service
 
 #install useful tools
-pacman -S --noconfirm wget arch-wiki-lite
+pacman -S --noconfirm wget arch-wiki-lite unzip rsync ed vim bash-completion
 
 #leave chroot
 exit
