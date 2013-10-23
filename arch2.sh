@@ -46,13 +46,16 @@ sed 's/^# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/' /etc/sudoers.backup > /etc
 echo Defaults timestamp_timeout=20 >> /etc/sudoers
 
 #Install openssh
-pacman -S --noconfirm openss
+pacman -S --noconfirm openssh
 
 #install dependencies for netctl
 pacman -S --noconfirm dialog wpa_supplicant ifplugd iw wpa_actiond
 
 #enable dhcpd
 systemctl enable dhcpcd.service
+
+#install useful tools
+pacman -S --noconfirm wget arch-wiki-lite
 
 #leave chroot
 exit
