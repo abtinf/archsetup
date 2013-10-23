@@ -4,7 +4,7 @@ GITUSERNAME=""
 GITEMAIL=""
 
 #Utilities
-sudo pacman -S --noconfirm bash-completion alsa-utils wget unzip rsync ed vim mc colordiff iotop youtube-dl pkgfile arch-wiki-lite texlive-most htop
+sudo pacman -S --noconfirm alsa-utils mc colordiff iotop pkgfile htop
 
 #update pkgfile for command no found hook
 sudo pkgfile --update
@@ -171,10 +171,3 @@ tar xzf yaourt.tar.gz
 cd yaourt
 makepkg -si
 cd ~
-
-#AUR ms fonts
-yaourt -S --noconfirm ttf-ms-fonts ttf-tahoma ttf-vista-fonts
-
-#blogging
-sudo pacman -S --noconfirm s3cmd
-gem install jekyll
