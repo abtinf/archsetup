@@ -4,7 +4,7 @@ HOSTNAME=""
 USERNAME=""
 
 #set time zone
-ln -s /usr/share/zoneinfo/America/Chicago /etc/localtime
+ln -s /usr/share/zoneinfo/America/Los_Angeles /etc/localtime
 
 #set language
 mv /etc/locale.gen /etc/locale.gen.backup
@@ -14,9 +14,6 @@ locale-gen
 
 #set hostname
 echo $HOSTNAME > /etc/hostname
-
-#set console font
-echo FONT=Lat2-Terminus16 > /etc/vconsole.conf
 
 #configure mkinitcpio and generate
 mv /etc/mkinitcpio.conf /etc/mkinitcpio.conf.backup
