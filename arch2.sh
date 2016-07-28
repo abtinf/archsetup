@@ -1,7 +1,8 @@
 #!/bin/bash
 
 # Set time zone
-read -p "Timezone (default /America/Lost_Angeles): " timezone
+read -p "Timezone (default /America/Los_Angeles): " timezone
+timezone=${timezone:-/America/Los_Angeles}
 ln -s "/usr/share/zoneinfo"$timezone /etc/localtime
 hwclock --systohc --utc
 
