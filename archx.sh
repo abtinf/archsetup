@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #servers
-sudo pacman -S --noconfirm xorg-server xorg-server-utils xorg-xinit xf86-video-intel xf86-input-synaptics xterm slim slim-themes archlinux-themes-slim spectrwm scrot slock
+sudo pacman -S --noconfirm xorg-server xorg-server-utils xorg-xinit xf86-video-intel xf86-input-synaptics xterm spectrwm scrot slock
 #fonts
 sudo pacman -S --noconfirm ttf-dejavu artwiz-fonts ttf-droid ttf-inconsolata ttf-freefont ttf-liberation xorg-fonts-type1
 #apps
@@ -14,9 +14,6 @@ sudo pacman -S --noconfirm cups cups-filters ghostscript gsfonts cups-pdf hplip
 sudo systemctl enable cups
 #media
 sudo pacman -S --noconfirm libdvdread libdvdcss libdvdnav vlc
-
-#strart display manager on boot
-sudo systemctl enable slim.service
 
 #configure xinitrc
 cat > ~/.xinitrc <<EOL
