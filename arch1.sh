@@ -1,15 +1,31 @@
 #!/bin/bash
 
-PASSPHRASE=""
+# Update system clock
+echo "Setting system clock"
+timedatectl set-ntp true
 
-#partition disk
+# Get dev
+read -p "Path to device (default /dev/sda): " dev_path
+dev_path=${dev_path:-/dev/sda}
+
+# Wipe Disk
+read -p "Secure erase drive (y/n): " wipe_drive
+wipe_drive=${wipe_drive:-n}
+if [ "$wipe_drive" == "y"]; then
+  cryptsetup open --type plain $dev_path container --key-file /dev/urandom
+  dd if=/dev/zero of=/dev/mapper/container bs=1M status=progress
+  cryptsetup close container
+fi
+
+# Partition Disk
+echo "Partitioning disk"
 cat<<EOF | fdisk /dev/sda
 o
 n
 p
 1
 
-+200M
++1G
 n
 p
 2
@@ -19,36 +35,31 @@ w
 
 EOF
 
-
-#perform full disk encryption and mount partitions
-modprobe dm_mod
-modprobe dm-crypt
-cat <<EOF | cryptsetup --cipher aes-xts-plain64 --key-size 512 luksFormat /dev/sda2
-$PASSPHRASE
-EOF
-cat <<EOF | cryptsetup luksOpen /dev/sda2 cryptroot
-$PASSPHRASE
-EOF
-mkfs.btrfs /dev/mapper/cryptroot
-mkfs.btrfs /dev/sda1
-mount /dev/mapper/cryptroot /mnt
+# Perform full disk encryption and mount partitions
+read -p "Passphrase for encrypted volume: " passphrase
+cryptsetup -v luksFormat $dev_path"2" <<< $passphrase
+cryptsetup open $devpath"2" <<< $passphrase
+mkfs -t ext4 /dev/mapper/cryptroot
+mkfs -t ext4 $dev_path"1"
+mount -t ext4 /dev/mapper/cryptroot /mnt
 mkdir /mnt/boot
-mount /dev/sda1 /mnt/boot
+mount $dev_path"1" /mnt/boot
 
-
-#find best packman mirrors
+# Find best packman mirrors
+echo "Ranking pacman mirrors"
 mv /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
-cat > /etc/pacman.d/mirrorlist <<EOL
-Server = http://mirrors.xmission.com/archlinux/\$repo/os/\$arch
-Server = http://mirrors.gigenet.com/archlinux/\$repo/os/\$arch
-Server = http://mirror.nexcess.net/archlinux/\$repo/os/\$arch
-Server = http://mirror.us.leaseweb.net/archlinux/\$repo/os/\$arch
-Server = http://mirror.umd.edu/archlinux/\$repo/os/\$arch
-Server = http://mirror.jmu.edu/pub/archlinux/\$repo/os/\$arch
-EOL
+rankmirrors /etc/pacman.d/mirrorlist.backup > /etc/pacman.d/mirrorlist
 
-#install base system
+# Install base system
+echo "Installing base system"
 pacstrap /mnt base base-devel
+pacstrap /mnt intel-ucode grub
+pacstrap /mnt xorg xorg-apps xorg-xdm xdm-archlinux spectrwm vim xterm
+
+# Copy mirrorlist to chroot
+echo "Copying mirrorlist to new system"
+cp /mnt/etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist.backup
+cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
 
 #install bootloader
 arch-chroot /mnt pacman -S --noconfirm grub-bios
