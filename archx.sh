@@ -29,10 +29,6 @@ chmod +x ~/.xinitrc
     #Thinkpad middle button scrolling /etc/X11/xorg.conf.d/20-thinkpad.conf
     #~/.Xresources
 
-#configure slim theme
-sudo mv /etc/slim.conf /etc/slim.conf.backup
-sudo bash -c "sed 's/^current_theme       default/current_theme       archlinux-simplyblack/' /etc/slim.conf.backup > /etc/slim.conf" 
-
 #congfigure spectrwm
 mkdir ~/scripts
 cp /etc/spectrwm.conf ~/.spectrwm.conf
