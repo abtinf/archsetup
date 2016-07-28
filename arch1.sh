@@ -19,7 +19,7 @@ fi
 
 # Partition Disk
 echo "Partitioning disk"
-cat<<EOF | fdisk /dev/sda
+cat<<EOF | fdisk $dev_path
 o
 n
 p
@@ -60,9 +60,6 @@ pacstrap /mnt xorg xorg-apps xorg-xdm xdm-archlinux spectrwm vim xterm
 echo "Copying mirrorlist to new system"
 cp /mnt/etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist.backup
 cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
-
-#install bootloader
-arch-chroot /mnt pacman -S --noconfirm grub-bios
 
 #generate fstab
 genfstab -p /mnt >> /mnt/etc/fstab
