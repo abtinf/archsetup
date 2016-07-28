@@ -1,8 +1,5 @@
 #!/bin/bash
 
-GITUSERNAME=""
-GITEMAIL=""
-
 #Utilities
 sudo pacman -S --noconfirm alsa-utils mc colordiff iotop pkgfile htop
 
@@ -13,8 +10,10 @@ sudo pkgfile --update
 sudo pacman -S --noconfirm git mercurial svn cvs bzr perl python ruby go gcc nodejs tcl tk
 
 #configure git
-git config --global user.name $GITUSERNAME
-git config --global user.email $GITEMAIL
+read -p "Git username: " git_username
+git config --global user.name $git_username
+read -p "Git email: " git_email
+git config --global user.email $git_email
 git config --global core.autocrlf input
 
 #update ruby gems
@@ -22,19 +21,19 @@ sudo gem update --system
 gem update
 
 #windows name lookup
-sudo pacman -S --noconfirm avahi nss-mdns
-sudo systemctl enable avahi-daemon.service
-sudo bash -c "sed 's/^hosts: files dns myhostname/hosts: files myhostname mdns_minimal [NOTFOUND=return] dns/' /etc/nsswitch.conf > /etc/nsswitch.confback; mv /etc/nsswitch.confback /etc/nsswitch.conf"
+#sudo pacman -S --noconfirm avahi nss-mdns
+#sudo systemctl enable avahi-daemon.service
+#sudo bash -c "sed 's/^hosts: files dns myhostname/hosts: files myhostname mdns_minimal [NOTFOUND=return] dns/' /etc/nsswitch.conf > /etc/nsswitch.confback; mv /etc/nsswitch.confback /etc/nsswitch.conf"
 
 #disable sleep on close
-sudo bash -c "sed 's/^#HandleLidSwitch=suspend/HandleLidSwitch=ignore/' /etc/systemd/logind.conf > /etc/systemd/logind.confback; mv /etc/systemd/logind.confback /etc/systemd/logind.conf"
-sudo bash -c "sed 's/^#HandleHibernateKey=hibernate/HandleHibernateKey=ignore/' /etc/systemd/logind.conf > /etc/systemd/logind.confback; mv /etc/systemd/logind.confback /etc/systemd/logind.conf"
+#sudo bash -c "sed 's/^#HandleLidSwitch=suspend/HandleLidSwitch=ignore/' /etc/systemd/logind.conf > /etc/systemd/logind.confback; mv /etc/systemd/logind.confback /etc/systemd/logind.conf"
+#sudo bash -c "sed 's/^#HandleHibernateKey=hibernate/HandleHibernateKey=ignore/' /etc/systemd/logind.conf > /etc/systemd/logind.confback; mv /etc/systemd/logind.confback /etc/systemd/logind.conf"
 
 
 #sync clock and enable network time daemon
-sudo pacman -S --noconfirm ntp
-sudo ntpd -qg
-sudo systemctl enable ntpd
+#sudo pacman -S --noconfirm ntp
+#sudo ntpd -qg
+#sudo systemctl enable ntpd
 
 
 #Get rid of annoying beep and enhance tab completion
