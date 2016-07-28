@@ -11,7 +11,7 @@ dev_path=${dev_path:-/dev/sda}
 # Wipe Disk
 read -p "Secure erase drive (y/n): " wipe_drive
 wipe_drive=${wipe_drive:-n}
-if [ "$wipe_drive" == "y"]; then
+if [ "$wipe_drive" == "y" ]; then
   cryptsetup open --type plain $dev_path container --key-file /dev/urandom
   dd if=/dev/zero of=/dev/mapper/container bs=1M status=progress
   cryptsetup close container
