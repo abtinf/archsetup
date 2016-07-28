@@ -37,6 +37,7 @@ echo Defaults timestamp_timeout=20 >> /etc/sudoers
 systemctl enable xdm-archlinux.service
 echo "exec spectrwm" > /home/$username/.xinitrc
 chown $username:$username /home/$username/.xinitrc
+chmod +x /home/$username/.xinitrc
 
 # Disable dumb network device naming
 ln -s /dev/null /etc/udev/rules.d/80-net-setup-link.rules
