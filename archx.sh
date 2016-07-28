@@ -25,32 +25,9 @@ exec \$1
 EOL
 chmod +x ~/.xinitrc
 
-#Thinkpad middle button scrolling
-sudo bash -c 'cat > /etc/X11/xorg.conf.d/20-thinkpad.conf <<EOL
-Section "InputClass"
-    Identifier         "Trackpoint Wheel Emulation"
-    MatchProduct       "TPPS/2 IBM TrackPoint|DualPoint Stick|Synaptics Inc. Composite TouchPad / TrackPoint|ThinkPad USB Keyboard with TrackPoint|USB Trackpoint pointing device|Composite TouchPad / TrackPoint"
-    MatchDevicePath    "/dev/input/event*"
-    Option             "EmulateWheel" "true"
-    Option             "EmulateWheelButton" "2"
-    Option             "Emulate3Buttons" "false"
-    Option             "XAxisMapping" "6 7"
-    Option             "YAxisMapping" "4 5"
-    Option             "ButtonMapping" "1 1 3 4 5"
-EndSection
-EOL'
-
-#configure xterm
-cat > ~/.Xresources <<EOL
-xterm*faceName: Liberation Mono:size=10:antialias=false
-xterm*font: 7x13
-xterm*locale: true
-xterm*saveLines: 4096
-xterm*jumpScroll: true
-
-xterm*foreground: rgb:b2/b2/b2
-xterm*background: rgb:08/08/08
-EOL
+#TODO copy or link
+    #Thinkpad middle button scrolling /etc/X11/xorg.conf.d/20-thinkpad.conf
+    #~/.Xresources
 
 #configure slim theme
 sudo mv /etc/slim.conf /etc/slim.conf.backup
