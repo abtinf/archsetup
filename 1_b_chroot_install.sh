@@ -46,13 +46,13 @@ ln -s /dev/null /etc/udev/rules.d/80-net-setup-link.rules
 
 # Install useful packages
 # Essential
-pacman -S intel-ucode grub
+pacman -S --noconfirm intel-ucode grub
 # Networking
-pacman -S dialog wpa_supplicant ifplugd iw wpa_actiond
+pacman -S --noconfirm dialog wpa_supplicant ifplugd iw wpa_actiond
 # X
-pacman -S xorg xorg-apps xorg-xdm xdm-archlinux xterm spectrwm
+pacman -S --noconfirm xorg xorg-apps xorg-xdm xdm-archlinux xterm spectrwm
 # Pull scripts
-pacman -S git
+pacman -S --noconfirm git
 cd /home/$username
 su - $username -c 'git clone https://github.com/abtinf/archsetup.git'
 
