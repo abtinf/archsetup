@@ -3,6 +3,11 @@
 # Utilities
 sudo pacman -S --noconfirm openssh wget arch-wiki-lite unzip rsync ed vim bash-completion
 
+# X stuff
+sudo pacman -S --noconfirm scrot slock
+sudo pacman -S --noconfirm ttf-dejavu artwiz-fonts ttf-droid ttf-inconsolata ttf-freefont ttf-liberation xorg-fonts-type1
+sudo pacman -S --noconfirm libdvdread libdvdcss libdvdnav vlc
+
 
 #Utilities
 sudo pacman -S --noconfirm alsa-utils mc colordiff iotop pkgfile htop
