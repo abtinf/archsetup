@@ -1,9 +1,5 @@
 #!/bin/bash
 
-#servers
-sudo pacman -S --noconfirm xorg-server xorg-server-utils xorg-xinit xf86-video-intel xf86-input-synaptics xterm spectrwm scrot slock
-#fonts
-sudo pacman -S --noconfirm ttf-dejavu artwiz-fonts ttf-droid ttf-inconsolata ttf-freefont ttf-liberation xorg-fonts-type1
 #apps
 sudo pacman -S --noconfirm audacity inkscape libreoffice-en-US libreoffice-calc libreoffice-impress libreoffice-writer libreoffice-draw gimp hunspell-en hyphen-en libmythes mythes-en gedit pidgin purple-plugin-pack aspell-en pidgin-otr gnucash tightvnc rdesktop
 #browsers
@@ -12,19 +8,12 @@ yaourt -S --noconfirm google-chrome-dev google-talkplugin minecraft
 #printing
 sudo pacman -S --noconfirm cups cups-filters ghostscript gsfonts cups-pdf hplip
 sudo systemctl enable cups
-#media
-sudo pacman -S --noconfirm libdvdread libdvdcss libdvdnav vlc
 
-#configure xinitrc
-cat > ~/.xinitrc <<EOL
-xrdb ~/.Xresources &
-exec \$1
-EOL
-chmod +x ~/.xinitrc
 
 #TODO copy or link
     #Thinkpad middle button scrolling /etc/X11/xorg.conf.d/20-thinkpad.conf
-    #~/.Xresources
+    #.Xresources
+    #.xinitrc - make executable
 
 #congfigure spectrwm
 mkdir ~/scripts
