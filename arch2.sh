@@ -44,6 +44,17 @@ chmod +x /home/$username/.xinitrc
 # Disable dumb network device naming
 ln -s /dev/null /etc/udev/rules.d/80-net-setup-link.rules
 
+# Install useful packages
+# Essential
+pacman -S intel-ucode grub
+# Networking
+pacman -S dialog wpa_supplicant ifplugd iw wpa_actiond
+# X
+pacman -S xorg xorg-apps xorg-xdm xdm-archlinux xterm spectrwm
+# Utilities
+pacman -S openssh wget arch-wiki-lite unzip rsync ed vim bash-completion
+
+
 # Add encryption hook to mkinitcpio and generate
 mv /etc/mkinitcpio.conf /etc/mkinitcpio.conf.backup
 sed 's/ filesystems/ encrypt filesystems/g' /etc/mkinitcpio.conf.backup > /etc/mkinitcpio.conf
