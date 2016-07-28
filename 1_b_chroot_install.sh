@@ -51,9 +51,10 @@ pacman -S intel-ucode grub
 pacman -S dialog wpa_supplicant ifplugd iw wpa_actiond
 # X
 pacman -S xorg xorg-apps xorg-xdm xdm-archlinux xterm spectrwm
-# Utilities
-pacman -S openssh wget arch-wiki-lite unzip rsync ed vim bash-completion
-
+# Pull scripts
+pacman -S git
+cd /home/$username
+su - $username -c 'git clone https://github.com/abtinf/archsetup.git'
 
 # Add encryption hook to mkinitcpio and generate
 mv /etc/mkinitcpio.conf /etc/mkinitcpio.conf.backup
