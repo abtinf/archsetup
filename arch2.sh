@@ -19,7 +19,9 @@ echo $hostname > /etc/hostname
 # TODO add hostname to hosts file
 
 # Set root password
+echo "Enter a root password (root will also be disabled)"
 passwd
+passwd -l root
 
 # Add user
 read -p "Username: " username
