@@ -1,0 +1,8 @@
+xterm*faceName: Liberation Mono:size=10:antialias=false
+xterm*font: 7x13
+xterm*locale: true
+xterm*saveLines: 4096
+xterm*jumpScroll: true
+
+xterm*foreground: rgb:b2/b2/b2
+xterm*background: rgb:08/08/08
