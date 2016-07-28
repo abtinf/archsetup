@@ -63,10 +63,10 @@ cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
 genfstab -p /mnt >> /mnt/etc/fstab
 
 #prepare next script
-mv ./arch2.sh /mnt/root/arch2.sh
-arch-chroot /mnt chmod +x /root/arch2.sh
-arch-chroot /mnt /bin/bash /root/arch2.sh
-rm /mnt/root/arch2.sh
+mv ./1_b_chroot_install.sh /mnt/root/1_b_chroot_install.sh
+arch-chroot /mnt chmod +x /root/1_b_chroot_install.sh
+arch-chroot /mnt /bin/bash /root/1_b_chroot_install.sh
+rm /mnt/root/1_b_chroot_install.sh
 
 umount /mnt/boot
 umount /mnt
