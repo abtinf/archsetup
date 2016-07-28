@@ -54,7 +54,10 @@ rankmirrors /etc/pacman.d/mirrorlist.backup > /etc/pacman.d/mirrorlist
 echo "Installing base system"
 pacstrap /mnt base base-devel
 pacstrap /mnt intel-ucode grub
+pacstrap /mnt dialog wpa_supplicant ifplugd iw wpa_actiond
 pacstrap /mnt xorg xorg-apps xorg-xdm xdm-archlinux spectrwm vim xterm
+pacstrap /mnt openssh wget arch-wiki-lite unzip rsync ed vim bash-completion
+
 
 # Copy mirrorlist to chroot
 echo "Copying mirrorlist to new system"
