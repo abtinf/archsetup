@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Utilities
+sudo pacman -S --noconfirm openssh wget arch-wiki-lite unzip rsync ed vim bash-completion
+
+
 #Utilities
 sudo pacman -S --noconfirm alsa-utils mc colordiff iotop pkgfile htop
 
