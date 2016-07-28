@@ -1,59 +1,58 @@
 #!/bin/bash
 
-HOSTNAME=""
-USERNAME=""
+# Set time zone
+read -p "Timezone (default /America/Lost_Angeles): " timezone
+ln -s "/usr/share/zoneinfo"$timezone /etc/localtime
+hwclock --systohc --utc
 
-#set time zone
-ln -s /usr/share/zoneinfo/America/Los_Angeles /etc/localtime
-
-#set language
+# Set language
+echo "Setting locale to en_US.UTF-8"
 mv /etc/locale.gen /etc/locale.gen.backup
 sed 's/^#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen.backup > /etc/locale.gen
 echo LANG=en_US.UTF-8 > /etc/locale.conf
 locale-gen
 
-#set hostname
-echo $HOSTNAME > /etc/hostname
+# Set hostname
+read -p "Hostname: " hostname
+echo $hostname > /etc/hostname
+# TODO add hostname to hosts file
 
-#configure mkinitcpio and generate
+# Set root password
+passwd
+
+# Add user
+read -p "Username: " username
+useradd -m -G wheel -s /bin/bash $username
+passwd $username
+
+# Enable wheel group for sudo
+mv /etc/sudoers /etc/sudoers.backup
+sed 's/^# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/' /etc/sudoers.backup > /etc/sudoers
+
+# Sudo password caching
+echo Defaults timestamp_timeout=20 >> /etc/sudoers
+
+# Enable display manager
+systemctl enable xdm-archlinux.service
+echo "exec spectrwm" > /home/$username/.xinitrc
+chown $username:$username /home/$username/.xinitrc
+
+# Disable dumb network device naming
+ln -s /dev/null /etc/udev/rules.d/80-net-setup-link.rules
+
+# Add encryption hook to mkinitcpio and generate
 mv /etc/mkinitcpio.conf /etc/mkinitcpio.conf.backup
 sed 's/ filesystems/ encrypt filesystems/g' /etc/mkinitcpio.conf.backup > /etc/mkinitcpio.conf
 mkinitcpio -p linux
 
-#set root password
-passwd
-
-#install grub
-grub-install /dev/sda
-cp /usr/share/locale/en\@quot/LC_MESSAGES/grub.mo /boot/grub/locale/en.mo
+# Install grub
+read -p "Path to device (default /dev/sda): " dev_path
+dev_path=${dev_path:-/dev/sda}
 mv /etc/default/grub /etc/default/grub.backup
-sed 's#^GRUB_CMDLINE_LINUX=""#GRUB_CMDLINE_LINUX="cryptdevice=/dev/sda2:cryptroot"#' /etc/default/grub.backup > /etc/default/grub
-pacman -S --noconfirm os-prober
+sed 's#^GRUB_CMDLINE_LINUX=""#GRUB_CMDLINE_LINUX="cryptdevice='$dev_path'2:cryptroot"#' /etc/default/grub.backup > /etc/default/grub
+grub-install $dev_path
 grub-mkconfig -o /boot/grub/grub.cfg
 
-#add user
-useradd -m -g users -G wheel,audio,lp,optical,storage,video,games,power,scanner,network -s /bin/bash $USERNAME
-passwd $USERNAME
-
-#enable wheel group for sudo
-mv /etc/sudoers /etc/sudoers.backup
-sed 's/^# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/' /etc/sudoers.backup > /etc/sudoers
-
-#sudo password caching
-echo Defaults timestamp_timeout=20 >> /etc/sudoers
-
-#Install openssh
-pacman -S --noconfirm openssh
-
-#install dependencies for netctl
-pacman -S --noconfirm dialog wpa_supplicant ifplugd iw wpa_actiond
-
-#enable dhcpd
-systemctl enable dhcpcd.service
-
-#install useful tools
-pacman -S --noconfirm wget arch-wiki-lite unzip rsync ed vim bash-completion
-
-#leave chroot
+# Leave chroot
 exit
 
