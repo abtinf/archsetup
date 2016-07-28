@@ -38,7 +38,7 @@ EOF
 # Perform full disk encryption and mount partitions
 read -p "Passphrase for encrypted volume: " passphrase
 cryptsetup -v luksFormat $dev_path"2" <<< $passphrase
-cryptsetup open $dev_path"2" <<< $passphrase
+cryptsetup open $dev_path"2" cryptroot <<< $passphrase
 mkfs -t ext4 /dev/mapper/cryptroot
 mkfs -t ext4 $dev_path"1"
 mount -t ext4 /dev/mapper/cryptroot /mnt
