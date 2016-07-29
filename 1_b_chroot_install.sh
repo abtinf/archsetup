@@ -65,7 +65,6 @@ pacman -S --noconfirm texlive-most zim audacity inkscape gimp gnucash tigervnc r
 
 read -n1 -r -p "Press any key to continue..." key
 # Pull scripts
-pacman -S --noconfirm git
 cd /home/$username
 su - $username -c 'git clone https://github.com/abtinf/archsetup.git'
 
