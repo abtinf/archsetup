@@ -39,22 +39,41 @@ echo Defaults timestamp_timeout=20 >> /etc/sudoers
 # Essential
 pacman -S --noconfirm intel-ucode grub
 # Networking
-pacman -S --noconfirm dialog wpa_supplicant ifplugd iw wpa_actiond
-# X
-pacman -S --noconfirm xorg xorg-apps xorg-xdm xdm-archlinux xterm spectrwm
+pacman -S --noconfirm dialog wpa_supplicant ifplugd iw wpa_actiond ufw
+# Utilities
+pacman -S --noconfirm openssh wget arch-wiki-lite unzip rsync ed vim bash-completion alsa-utils mc colordiff iotop pkgfile htop
+# Development tools
+pacman -S --noconfirm git mercurial svn cvs bzr perl python ruby go gcc nodejs tcl tk
+# X and display manager
+pacman -S --noconfirm xorg xorg-apps xorg-xdm xdm-archlinux
+# Window manager and desktop environment
+pacman -S --noconfirm xterm spectrwm scrot slock
+# Fonts
+pacman -S --noconfirm ttf-dejavu artwiz-fonts ttf-droid ttf-inconsolata ttf-freefont ttf-liberation xorg-fonts-type1
+# Media
+pacman -S --noconfirm libdvdread libdvdcss libdvdnav vlc
+
 # Pull scripts
 pacman -S --noconfirm git
 cd /home/$username
 su - $username -c 'git clone https://github.com/abtinf/archsetup.git'
+# Create config symlinks
+su - $username -c 'ln -s ./archsetup/config/.Xresources ~/.Xresources'
+su - $username -c 'ln -s ./archsetup/config/.xinitrc    ~/.xinitrc'
+su - $username -c 'ln -s ./archsetup/config/.bashrc     ~/.bashrc'
+su - $username -c 'ln -s ./archsetup/config/.inputrc    ~/.inputrc'
+su - $username -c 'ln -s ./archsetup/config/.vimrc      ~/.vimrc'
 
 # Enable display manager
 systemctl enable xdm-archlinux.service
-echo "exec spectrwm" > /home/$username/.xinitrc
-chown $username:$username /home/$username/.xinitrc
 chmod +x /home/$username/.xinitrc
 
 # Disable dumb network device naming
 ln -s /dev/null /etc/udev/rules.d/80-net-setup-link.rules
+# Firewall
+ufw enable
+ufw default deny
+systemctl enable ufw
 
 # Add encryption hook to mkinitcpio and generate
 mv /etc/mkinitcpio.conf /etc/mkinitcpio.conf.backup
