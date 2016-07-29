@@ -61,11 +61,12 @@ pacman -S --noconfirm git
 cd /home/$username
 su - $username -c 'git clone https://github.com/abtinf/archsetup.git'
 # Create config symlinks
-su - $username -c 'ln -s ./archsetup/config/.Xresources ~/.Xresources'
-su - $username -c 'ln -s ./archsetup/config/.xinitrc    ~/.xinitrc'
-su - $username -c 'ln -s ./archsetup/config/.bashrc     ~/.bashrc'
-su - $username -c 'ln -s ./archsetup/config/.inputrc    ~/.inputrc'
-su - $username -c 'ln -s ./archsetup/config/.vimrc      ~/.vimrc'
+su - $username -c 'ln -s ./archsetup/config/.Xresources    ~/.Xresources'
+su - $username -c 'ln -s ./archsetup/config/.xinitrc       ~/.xinitrc'
+su - $username -c 'ln -s ./archsetup/config/.bashrc        ~/.bashrc'
+su - $username -c 'ln -s ./archsetup/config/.inputrc       ~/.inputrc'
+su - $username -c 'ln -s ./archsetup/config/.spectrwm.conf ~/.spectrwm.conf'
+su - $username -c 'ln -s ./archsetup/config/.vimrc         ~/.vimrc'
 
 # Enable display manager
 systemctl enable xdm-archlinux.service
