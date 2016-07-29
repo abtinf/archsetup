@@ -52,7 +52,7 @@ rankmirrors /etc/pacman.d/mirrorlist.backup > /etc/pacman.d/mirrorlist
 
 # Install base system
 echo "Installing base system"
-pacstrap /mnt base base-devel
+pacstrap /mnt base
 
 # Copy mirrorlist to chroot
 echo "Copying mirrorlist to new system"
