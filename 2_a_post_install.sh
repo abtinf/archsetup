@@ -5,8 +5,8 @@ sudo ip link set eth0 up
 sudo ip link set wlan0 up
 
 # Update ruby gems
-gem update --system
-su - $username -c 'gem update'
+sudo gem update --system
+gem update
 
 # AUR helper
 git clone https://aur.archlinux.org/package-query.git
