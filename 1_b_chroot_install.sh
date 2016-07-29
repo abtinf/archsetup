@@ -47,7 +47,7 @@ pacman -S --noconfirm git mercurial svn cvs bzr perl python ruby go gcc nodejs t
 # X and display manager
 pacman -S --noconfirm xorg xorg-apps xorg-xdm xdm-archlinux
 # Window manager and desktop environment
-pacman -S --noconfirm xterm spectrwm scrot slock
+pacman -S --noconfirm xterm spectrwm scrot slock xautolock
 # Fonts
 pacman -S --noconfirm ttf-dejavu artwiz-fonts ttf-droid ttf-inconsolata ttf-freefont ttf-liberation xorg-fonts-type1
 # Media
