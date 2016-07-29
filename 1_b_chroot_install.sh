@@ -41,9 +41,9 @@ pacman -S --noconfirm base-devel intel-ucode grub
 # Networking
 pacman -S --noconfirm dialog wpa_supplicant ifplugd iw wpa_actiond ufw
 # Utilities
-pacman -S --noconfirm openssh wget arch-wiki-lite unzip rsync ed vim bash-completion alsa-utils mc colordiff iotop pkgfile htop
+pacman -S --noconfirm ntp openssh wget arch-wiki-lite unzip rsync ed vim bash-completion alsa-utils mc colordiff iotop pkgfile htop
 # Development tools
-pacman -S --noconfirm git mercurial svn cvs bzr perl python ruby go gcc nodejs tcl tk
+pacman -S --noconfirm git mercurial svn cvs bzr perl python ruby go gcc nodejs tcl tk qt4 
 # X and display manager
 pacman -S --noconfirm xorg xorg-apps xorg-xdm xdm-archlinux
 # Window manager and desktop environment
@@ -51,7 +51,7 @@ pacman -S --noconfirm xterm spectrwm scrot slock
 # Fonts
 pacman -S --noconfirm ttf-dejavu artwiz-fonts ttf-droid ttf-inconsolata ttf-freefont ttf-liberation xorg-fonts-type1
 # Media
-pacman -S --noconfirm libdvdread libdvdcss libdvdnav vlc
+pacman -S --noconfirm libdvdread libdvdcss libdvdnav libcdio vlc
 
 # Pull scripts
 pacman -S --noconfirm git
@@ -74,6 +74,26 @@ ln -s /dev/null /etc/udev/rules.d/80-net-setup-link.rules
 ufw enable
 ufw default deny
 systemctl enable ufw
+
+# Update pkgfile for command no found hook
+sudo pkgfile --update
+
+# Configure git
+read -p "Git username: " git_username
+su - $username -c 'git config --global user.name $git_username'
+read -p "Git email: " git_email
+su - $username -c 'git config --global user.email $git_email'
+su - $username -c 'git config --global core.autocrlf input'
+
+# Update ruby gems
+gem update --system
+su - $username -c 'gem update'
+
+# Sync clock and enable network time daemon
+ntpd -qg
+systemctl enable ntpd
+
+
 
 # Add encryption hook to mkinitcpio and generate
 mv /etc/mkinitcpio.conf /etc/mkinitcpio.conf.backup
