@@ -66,6 +66,7 @@ su - $username -c 'ln -s ./archsetup/config/.xinitrc       ~/.xinitrc'
 su - $username -c 'ln -s ./archsetup/config/.bashrc        ~/.bashrc'
 su - $username -c 'ln -s ./archsetup/config/.inputrc       ~/.inputrc'
 su - $username -c 'ln -s ./archsetup/config/.spectrwm.conf ~/.spectrwm.conf'
+su - $username -c 'ln -s ./archsetup/config/.conkyrc       ~/.conkyrc'
 su - $username -c 'ln -s ./archsetup/config/.vimrc         ~/.vimrc'
 
 # Enable display manager
