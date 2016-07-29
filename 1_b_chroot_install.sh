@@ -72,6 +72,7 @@ read -n1 -r -p "Press any key to continue..." key
 # Create config symlinks
 su - $username -c 'ln -s ./archsetup/config/.Xresources    ~/.Xresources'
 su - $username -c 'ln -s ./archsetup/config/.xinitrc       ~/.xinitrc'
+rm .bashrc
 su - $username -c 'ln -s ./archsetup/config/.bashrc        ~/.bashrc'
 su - $username -c 'ln -s ./archsetup/config/.inputrc       ~/.inputrc'
 su - $username -c 'ln -s ./archsetup/config/.spectrwm.conf ~/.spectrwm.conf'
