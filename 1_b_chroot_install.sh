@@ -83,15 +83,15 @@ chmod +x /home/$username/.xinitrc
 # Disable dumb network device naming
 ln -s /dev/null /etc/udev/rules.d/80-net-setup-link.rules
 # Enable netctl
-sudo systemctl enable netctl-ifplugd@eth0.service
-sudo systemctl enable netctl-auto@wlan0.service
+systemctl enable netctl-ifplugd@eth0.service
+systemctl enable netctl-auto@wlan0.service
 # Firewall
 ufw enable
 ufw default deny
 systemctl enable ufw
 
 # Update pkgfile for command no found hook
-sudo pkgfile --update
+pkgfile --update
 
 # Configure git
 read -p "Git username: " git_username
