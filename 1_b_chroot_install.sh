@@ -35,15 +35,6 @@ sed 's/^# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/' /etc/sudoers.backup > /etc
 # Sudo password caching
 echo Defaults timestamp_timeout=20 >> /etc/sudoers
 
-# Enable display manager
-systemctl enable xdm-archlinux.service
-echo "exec spectrwm" > /home/$username/.xinitrc
-chown $username:$username /home/$username/.xinitrc
-chmod +x /home/$username/.xinitrc
-
-# Disable dumb network device naming
-ln -s /dev/null /etc/udev/rules.d/80-net-setup-link.rules
-
 # Install useful packages
 # Essential
 pacman -S --noconfirm intel-ucode grub
@@ -55,6 +46,15 @@ pacman -S --noconfirm xorg xorg-apps xorg-xdm xdm-archlinux xterm spectrwm
 pacman -S --noconfirm git
 cd /home/$username
 su - $username -c 'git clone https://github.com/abtinf/archsetup.git'
+
+# Enable display manager
+systemctl enable xdm-archlinux.service
+echo "exec spectrwm" > /home/$username/.xinitrc
+chown $username:$username /home/$username/.xinitrc
+chmod +x /home/$username/.xinitrc
+
+# Disable dumb network device naming
+ln -s /dev/null /etc/udev/rules.d/80-net-setup-link.rules
 
 # Add encryption hook to mkinitcpio and generate
 mv /etc/mkinitcpio.conf /etc/mkinitcpio.conf.backup
