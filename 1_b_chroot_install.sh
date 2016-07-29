@@ -25,7 +25,7 @@ passwd -l root
 
 # Add user
 read -p "Username: " username
-useradd -m -G wheel -s /bin/bash $username
+useradd -m -G wheel,storage -s /bin/bash $username
 passwd $username
 
 # Enable wheel group for sudo
@@ -41,7 +41,7 @@ pacman -S --noconfirm base-devel intel-ucode grub
 # Networking
 pacman -S --noconfirm dialog wpa_supplicant ifplugd iw wpa_actiond ufw
 # Utilities
-pacman -S --noconfirm ntp openssh wget arch-wiki-lite unzip rsync ed vim bash-completion alsa-utils mc colordiff iotop pkgfile htop
+pacman -S --noconfirm ntp openssh wget arch-wiki-lite unzip rsync ed vim bash-completion alsa-utils mc colordiff iotop pkgfile htop udisks2 udevil ntfs-3g parted
 # Development tools
 pacman -S --noconfirm git mercurial svn cvs bzr perl python ruby go gcc nodejs tcl tk qt4 poppler-glib
 # X and display manager
@@ -68,6 +68,13 @@ su - $username -c 'ln -s ./archsetup/config/.inputrc       ~/.inputrc'
 su - $username -c 'ln -s ./archsetup/config/.spectrwm.conf ~/.spectrwm.conf'
 su - $username -c 'ln -s ./archsetup/config/.conkyrc       ~/.conkyrc'
 su - $username -c 'ln -s ./archsetup/config/.vimrc         ~/.vimrc'
+
+# External storage manager
+systemctl enable udisks2.service
+systemctl enable devmon@$username.service
+chmod -s /usr/bin/udevil
+cp ./archsetup/config/50-udiskie.rules /etc/polkit-1/rules.d/
+cp ./archsetup/config/99-udisks2.rules /etc/udev/rules.d/
 
 # Enable display manager
 systemctl enable xdm-archlinux.service
