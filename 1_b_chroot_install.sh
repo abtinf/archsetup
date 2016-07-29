@@ -74,6 +74,9 @@ chmod +x /home/$username/.xinitrc
 
 # Disable dumb network device naming
 ln -s /dev/null /etc/udev/rules.d/80-net-setup-link.rules
+# Enable netctl
+sudo systemctl enable netctl-ifplugd@eth0.service
+sudo systemctl enable netctl-auto@wlan0.service
 # Firewall
 ufw enable
 ufw default deny
@@ -96,8 +99,6 @@ su - $username -c 'gem update'
 # Sync clock and enable network time daemon
 ntpd -qg
 systemctl enable ntpd
-
-
 
 # Add encryption hook to mkinitcpio and generate
 mv /etc/mkinitcpio.conf /etc/mkinitcpio.conf.backup
