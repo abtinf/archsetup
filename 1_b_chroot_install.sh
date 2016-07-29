@@ -37,7 +37,7 @@ echo Defaults timestamp_timeout=20 >> /etc/sudoers
 
 # Install useful packages
 # Essential
-pacman -S --noconfirm intel-ucode grub
+pacman -S --noconfirm base-devel intel-ucode grub
 # Networking
 pacman -S --noconfirm dialog wpa_supplicant ifplugd iw wpa_actiond ufw
 # Utilities
