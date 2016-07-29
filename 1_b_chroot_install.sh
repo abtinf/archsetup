@@ -116,11 +116,6 @@ su - $username -c 'git config --global user.email $git_email'
 su - $username -c 'git config --global core.autocrlf input'
 
 read -n1 -r -p "Press any key to continue..." key
-# Update ruby gems
-gem update --system
-su - $username -c 'gem update'
-
-read -n1 -r -p "Press any key to continue..." key
 # Sync clock and enable network time daemon
 ntpd -qg
 systemctl enable ntpd
