@@ -43,7 +43,7 @@ pacman -S --noconfirm dialog wpa_supplicant ifplugd iw wpa_actiond ufw
 # Utilities
 pacman -S --noconfirm ntp openssh wget arch-wiki-lite unzip rsync ed vim bash-completion alsa-utils mc colordiff iotop pkgfile htop
 # Development tools
-pacman -S --noconfirm git mercurial svn cvs bzr perl python ruby go gcc nodejs tcl tk qt4 
+pacman -S --noconfirm git mercurial svn cvs bzr perl python ruby go gcc nodejs tcl tk qt4 poppler-glib
 # X and display manager
 pacman -S --noconfirm xorg xorg-apps xorg-xdm xdm-archlinux
 # Window manager and desktop environment
@@ -51,7 +51,10 @@ pacman -S --noconfirm xterm spectrwm scrot slock
 # Fonts
 pacman -S --noconfirm ttf-dejavu artwiz-fonts ttf-droid ttf-inconsolata ttf-freefont ttf-liberation xorg-fonts-type1
 # Media
-pacman -S --noconfirm libdvdread libdvdcss libdvdnav libcdio vlc
+pacman -S --noconfirm libdvdread libdvdcss libdvdnav libcdio vlc youtube-dl
+# Productivity
+pacman -S --noconfirm texlive-most zim audacity inkscape gimp gnucash tigervnc rdesktop libreoffice-still filezilla
+
 
 # Pull scripts
 pacman -S --noconfirm git
