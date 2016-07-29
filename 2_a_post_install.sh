@@ -1,22 +1,7 @@
 #!/bin/bash
 
-# Utilities
-sudo pacman -S --noconfirm openssh wget arch-wiki-lite unzip rsync ed vim bash-completion
-
-# X stuff
-sudo pacman -S --noconfirm scrot slock
-sudo pacman -S --noconfirm ttf-dejavu artwiz-fonts ttf-droid ttf-inconsolata ttf-freefont ttf-liberation xorg-fonts-type1
-sudo pacman -S --noconfirm libdvdread libdvdcss libdvdnav vlc
-
-
-#Utilities
-sudo pacman -S --noconfirm alsa-utils mc colordiff iotop pkgfile htop
-
 #update pkgfile for command no found hook
 sudo pkgfile --update
-
-#dev tools
-sudo pacman -S --noconfirm git mercurial svn cvs bzr perl python ruby go gcc nodejs tcl tk
 
 #configure git
 read -p "Git username: " git_username
@@ -43,29 +28,6 @@ gem update
 #sudo pacman -S --noconfirm ntp
 #sudo ntpd -qg
 #sudo systemctl enable ntpd
-
-
-#Get rid of annoying beep and enhance tab completion
-cat > ~/.inputrc <<EOL
-set bell-style none
-set show-all-if-ambiguous on
-EOL
-
-
-#configure firewall
-sudo pacman -S --noconfirm ufw
-sudo ufw enable
-sudo ufw default deny
-sudo systemctl enable ufw
-
-
-#lock the root user
-sudo passwd -l root
-
-
-#todo copy or link
-  #.bashrc
-  #.vimrc
 
 #AUR helper
 cd /tmp
