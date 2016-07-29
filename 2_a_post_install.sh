@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Networking
+sudo ip link set eth0 up
+sudo ip link set wlan0 up
+
 #windows name lookup
 #sudo pacman -S --noconfirm avahi nss-mdns
 #sudo systemctl enable avahi-daemon.service
