@@ -78,7 +78,7 @@ cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
 
 read -n1 -r -p "Press any key to continue..." key
 #generate fstab
-genfstab -p /mnt >> /mnt/etc/fstab
+genfstab -U /mnt >> /mnt/etc/fstab
 
 read -n1 -r -p "Press any key to continue..." key
 #prepare next script
