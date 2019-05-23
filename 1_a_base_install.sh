@@ -46,13 +46,16 @@ EOF
 read -n1 -r -p "Press any key to continue..." key
 # Perform full disk encryption and mount partitions
 read -p "Passphrase for encrypted volume: " passphrase
-cryptsetup -v luksFormat $dev_path"2" <<< $passphrase
-cryptsetup open $dev_path"2" cryptroot <<< $passphrase
+cryptsetup --key-size 512 -v luksFormat $dev_path"3" <<< $passphrase
+cryptsetup open $dev_path"3" cryptroot <<< $passphrase
 mkfs -t ext4 /dev/mapper/cryptroot
-mkfs -t ext4 $dev_path"1"
+mkfs -t ext4 $dev_path"2"
+mkfs.fat -F32 $dev_path"1"
 mount -t ext4 /dev/mapper/cryptroot /mnt
 mkdir /mnt/boot
-mount $dev_path"1" /mnt/boot
+mount $dev_path"2" /mnt/boot
+mkdir /mnt/efi
+mount $dev_path"1" /mnt/efi
 
 read -n1 -r -p "Press any key to continue..." key
 # Find best packman mirrors
