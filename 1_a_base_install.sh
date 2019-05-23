@@ -60,8 +60,10 @@ mount $dev_path"1" /mnt/efi
 read -n1 -r -p "Press any key to continue..." key
 # Find best packman mirrors
 echo "Ranking pacman mirrors"
+wget -O mirrorlist https://www.archlinux.org/mirrorlist/?country=US&protocol=https&ip_version=4&use_mirror_status=on
 mv /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
-rankmirrors /etc/pacman.d/mirrorlist.backup > /etc/pacman.d/mirrorlist
+sed -i 's/^#Server/Server/' mirrorlist
+mv mirrorlist /etc/pacman.d/mirrorlist
 
 read -n1 -r -p "Press any key to continue..." key
 # Install base system
