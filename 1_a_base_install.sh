@@ -82,6 +82,7 @@ genfstab -U /mnt >> /mnt/etc/fstab
 
 read -n1 -r -p "Press any key to continue..." key
 #prepare next script
+wget https://raw.githubusercontent.com/abtinf/archsetup/master/1_b_chroot_install.sh
 mv ./1_b_chroot_install.sh /mnt/root/1_b_chroot_install.sh
 arch-chroot /mnt chmod +x /root/1_b_chroot_install.sh
 arch-chroot /mnt /bin/bash /root/1_b_chroot_install.sh
