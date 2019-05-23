@@ -15,28 +15,32 @@ read -n1 -r -p "Press any key to continue..." key
 read -p "Secure erase drive (y/n): " wipe_drive
 wipe_drive=${wipe_drive:-n}
 if [ "$wipe_drive" == "y" ]; then
-  cryptsetup open --type plain $dev_path container --key-file /dev/urandom
-  dd if=/dev/zero of=/dev/mapper/container bs=1M status=progress
-  cryptsetup close container
+  cryptsetup open --type plain -d /dev/urandom $dev_path to_be_wiped
+  dd if=/dev/zero of=/dev/mapper/to_be_wiped bs=1M status=progress
+  cryptsetup close to_be_wiped
 fi
 
 read -n1 -r -p "Press any key to continue..." key
 # Partition Disk
 echo "Partitioning disk"
 cat<<EOF | fdisk $dev_path
-o
+g
 n
-p
 1
 
-+1G
++250M
 n
-p
 2
 
++500M
+n
+3
 
+
+t
+1
+1
 w
-
 EOF
 
 read -n1 -r -p "Press any key to continue..." key
